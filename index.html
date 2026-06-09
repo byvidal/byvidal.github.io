@@ -1,163 +1,590 @@
-<!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dev-nets.me | Technical Portfolio & Labs</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9754978510809336"
+         crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>ASOCIACION DE TARJETA </title>
+        <script async custom-element="amp-auto-ads"
+            src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+        </script>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&amp;display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: radial-gradient(circle at 20% 20%, #111019 0%, #06060a 45%, #030304 100%);
+            font-family: 'VT323', monospace;
+            color: #cfd3dc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+
+        #matrix-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; 
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .logo-float {
+            position: fixed; z-index: 5; pointer-events: none; object-fit: contain;
+        }
+        .logo-top-left {
+            top: 15px; left: 15px; width: 60px; height: 60px;
+            border-radius: 50%; box-shadow: 0 0 10px rgba(123, 117, 214, 0.4);
+            border: 2px solid rgba(123, 117, 214, 0.6); background: #000;
+        }
+        .logo-bottom-left { bottom: 10px; left: 10px; width: 80px; height: auto; opacity: 0.8; }
+        .logo-bottom-right { bottom: 10px; right: 10px; width: 80px; height: auto; opacity: 0.8; }
+
+        .page-container {
+            position: relative; z-index: 10; width: 100%; max-width: 1000px;
+            display: flex; flex-direction: column; gap: 20px;
+            background: rgba(12, 12, 18, 0.85);
+            padding: 25px; border-radius: 20px;
+            border: 1px solid rgba(123, 117, 214, 0.3);
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            margin-bottom: 50px;
+        }
+
+        .top-bar {
+            text-align: center; border-bottom: 1.5px solid #7b75d6;
+            padding-bottom: 15px; margin-bottom: 10px;
+            font-size: 22px; color: #cfd3dc; text-shadow: 0 0 4px rgba(123, 117, 214, 0.4);
+        }
+        .blink { animation: blink 1.4s step-start infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .content-area {
+            display: flex; flex-direction: row; gap: 40px;
+            align-items: center; justify-content: center;
+        }
+
+        .card-wrapper { flex: 1; max-width: 420px; min-width: 300px; }
+
+        .card-visual {
+            aspect-ratio: 1.58/1; width: 100%;
+            border-radius: 18px; padding: 25px; position: relative;
+            display: flex; flex-direction: column; justify-content: space-between;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1.5px solid rgba(123, 117, 214, 0.5);
+            box-shadow: 0 0 20px rgba(123, 117, 214, 0.2);
+            overflow: hidden; transition: transform 0.3s;
+        }
+
+        #card-neural-net { position: absolute; inset: 0; z-index: 1; opacity: 0.6; pointer-events: none; }
+        
+        .card-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: space-between;}
+        .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+
+        .chip {
+            width: 50px; height: 36px;
+            background: linear-gradient(135deg, #e6c86e 0%, #bf9738 50%, #e6c86e 100%);
+            border-radius: 6px; position: relative;
+            border: 1px solid #8a6e18;
+            box-shadow: inset 0 1px 3px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .chip::before {
+            content: ""; position: absolute; top: 50%; left: 0; width: 100%; height: 1px;
+            background: rgba(0,0,0,0.3); transform: translateY(-50%);
+        }
+        .chip::after {
+            content: ""; position: absolute; left: 35%; top: 0; width: 30%; height: 100%;
+            border-left: 1px solid rgba(0,0,0,0.3); border-right: 1px solid rgba(0,0,0,0.3);
+        }
+
+        .card-logo-type {
+            font-size: 24px; font-weight: bold; font-style: italic;
+            text-transform: uppercase; text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            color: #fff;
+        }
+
+        .card-number-display {
+            font-size: 28px; letter-spacing: 3px; color: #fff;
+            text-shadow: 0 0 8px rgba(123,117,214,0.8);
+            margin-top: 10px; white-space: nowrap;
+        }
+
+        .card-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+        .card-label { font-size: 14px; color: #aaa; text-transform: uppercase; }
+        .card-value { font-size: 20px; color: #fff; }
+
+        .form-area { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 300px; }
+        .input-group { position: relative; }
+        
+        .label { 
+            font-size: 20px; color: #cfd3dc; margin-bottom: 5px; display: flex; align-items: center; gap: 8px;
+        }
+
+        .emoji-jump {
+            display: inline-block;
+            animation: jump 1.5s infinite ease-in-out;
+        }
+        @keyframes jump {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        
+        input {
+            width: 100%; background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #555; color: #fff;
+            font-family: 'VT323', monospace; font-size: 24px; padding: 12px;
+            border-radius: 8px; outline: none; transition: all 0.3s;
+        }
+        input:focus { border-color: #7b75d6; box-shadow: 0 0 15px rgba(123, 117, 214, 0.3); }
+
+        .msg-feedback { font-size: 16px; margin-top: 5px; min-height: 20px; transition: all 0.3s; }
+        .msg-error { color: #ff4444; text-shadow: 0 0 5px rgba(255, 0, 0, 0.4); display: none;}
+
+        .msg-info { 
+            color: #d042ff; 
+            text-shadow: 0 0 8px rgba(208, 66, 255, 0.6);
+            display: none; font-weight: bold; letter-spacing: 1px;
+        }
+        
+        .input-error { border-color: #ff4444 !important; box-shadow: 0 0 10px rgba(255,68,68,0.3) !important; }
+
+        .btn-wrapper {
+            perspective: 1000px;
+            margin-top: 10px;
+        }
+        .btn-action {
+            width: 100%; background: #2a2a40;
+            border: 2px solid #7b75d6; color: #fff;
+            font-family: 'VT323', monospace; font-size: 24px;
+            padding: 15px; cursor: pointer; border-radius: 10px;
+            text-transform: uppercase;
+
+            transform-style: preserve-3d;
+            animation: signSwing 4s ease-in-out infinite;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        @keyframes signSwing {
+            0% { transform: rotateX(0deg); }
+            50% { transform: rotateX(15deg); }
+            100% { transform: rotateX(0deg); }
+        }
+
+        .btn-action:hover { background: #7b75d6; color: #000; box-shadow: 0 0 20px #7b75d6; }
+
+        .emoji-spin {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+
+        .footer { text-align: center; font-size: 14px; opacity: 0.6; margin-top: 10px;}
+
+        #loading-screen {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 8, 0.95); z-index: 100;
+            flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+        .counter { font-size: 120px; color: #7b75d6; text-shadow: 0 0 20px #7b75d6; }
+        .success-text { font-size: 30px; color: #fff; margin-top: 20px; }
+
+        @media (max-width: 768px) {
+            body { align-items: flex-start; padding: 10px; padding-top: 80px; }
+            .page-container { width: 100%; padding: 15px; }
+            .content-area { flex-direction: column; gap: 25px; }
+            .card-visual { width: 100%; }
+            .card-number-display { font-size: 22px; }
+            .logo-top-left { width: 50px; height: 50px; }
+            .logo-bottom-left, .logo-bottom-right { width: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <canvas id="matrix-canvas" width="360" height="669"></canvas>
+
+    <div class="page-container">
+        <div class="top-bar">
+            <span class="blink">SYSTEM_ROOT: ASOCIAR_TARJETA </span>
+        </div>
+
+        <div class="content-area">
+            
+            <div class="card-wrapper">
+                <div class="card-visual" id="cardVisual">
+
+                    <canvas id="card-neural-net" width="300" height="189"></canvas>
+                    
+                    <div class="card-content">
+                        <div class="card-top">
+                            <div class="chip"></div>
+
+                            <div class="card-logo-type" id="cardBrandLabel" style="color: #4af;">VISA</div>
+                        </div>
+                        
+                        <div class="card-number-display" id="displayNumber">#### #### #### ####</div>
+                        
+                        <div class="card-bottom">
+                            <div>
+                                <div class="card-label">TITULAR</div>
+                                <div class="card-value">USUARIO</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="card-label">VENCE</div>
+                                <div class="card-value" id="displayDate">MM/AA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-area">
+                <form id="payment-form" action="" method="POST">
+                    
+                    <div class="input-group">
+                        <label class="label">► NÚMERO DE TARJETA <span class="emoji-jump">💳</span></label>
+                        <input type="tel" id="cardNumber" name="cardnumber" autocomplete="cc-number" placeholder="0000 0000 0000 0000" maxlength="23">
+                        <div id="msgNumber" class="msg-feedback">
+                            <span class="msg-error">ERROR: Tarjeta inválida o incompleta</span>
+                            <span class="msg-info">Faltan dígitos...</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="label">► FECHA DE VENCIMIENTO</label>
+                        <input type="tel" id="cardDate" name="cc-exp" autocomplete="cc-exp" placeholder="MM/AA" maxlength="5">
+                         <div id="msgDate" class="msg-feedback">
+                            <span class="msg-error">Fecha incompleta</span>
+                        </div>
+                    </div>
+
+                    <div class="btn-wrapper">
+                        <button type="submit" id="btnAsociar" class="btn-action">
+                            <span class="emoji-spin">⚡</span> [ ASOCIAR TARJETA ]
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+<a href="https://top-kizy.org/2index.html">gen</a>
+        <div class="footer">TODOS LOS DERECHOS RESERVADO-COPYRIGHT MACLOVIM</div>
+    </div>
+
+    <div id="loading-screen">
+        <div class="loading-title" style="color:#fff; font-size:24px; margin-bottom:20px;">[ PROCESANDO ]</div>
+        <div class="counter" id="counterNumber">3</div>
+        <div class="success-text" id="finalMessage">¡TARJETA ASOCIADA CON ÉXITO!</div>
+    </div>
+
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        darkBg: '#0f172a',
-                        cardBg: '#1e293b',
-                        accent: '#38bdf8'
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resizeMatrix() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeMatrix);
+        resizeMatrix();
+
+        const cols = Math.floor(width / 20) + 1;
+        const ypos = Array(cols).fill(0);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = '#8a7dff';
+            ctx.font = '15pt monospace';
+            
+            ypos.forEach((y, ind) => {
+                const text = String.fromCharCode(Math.random() * 128);
+                const x = ind * 20;
+                ctx.fillText(text, x, y);
+                if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
+                else ypos[ind] = y + 20;
+            });
+        }
+        setInterval(drawMatrix, 50);
+
+        const netCanvas = document.getElementById('card-neural-net');
+        const netCtx = netCanvas.getContext('2d');
+        let netW, netH;
+        let nodes = [];
+
+        function resizeNet() {
+            const card = document.getElementById('cardVisual');
+            const rect = card.getBoundingClientRect();
+            netW = netCanvas.width = rect.width;
+            netH = netCanvas.height = rect.height;
+
+            if (nodes.length === 0) {
+                initNodes();
+            }
+        }
+        
+        function initNodes() {
+            nodes = [];
+            for(let i=0; i<30; i++) {
+                nodes.push({
+                    x: Math.random() * netW, y: Math.random() * netH,
+                    vx: (Math.random()-0.5)*0.5, vy: (Math.random()-0.5)*0.5
+                });
+            }
+        }
+        window.addEventListener('resize', resizeNet);
+        setTimeout(resizeNet, 100);
+
+        function drawNet() {
+
+            netCtx.clearRect(0,0,netW,netH);
+
+            for(let i=0; i<nodes.length; i++) {
+                let p1 = nodes[i];
+                p1.x += p1.vx; p1.y += p1.vy;
+
+                if(p1.x < 0) { p1.x = 0; p1.vx *= -1; }
+                if(p1.x > netW) { p1.x = netW; p1.vx *= -1; }
+                if(p1.y < 0) { p1.y = 0; p1.vy *= -1; }
+                if(p1.y > netH) { p1.y = netH; p1.vy *= -1; }
+
+                for(let j=i+1; j<nodes.length; j++) {
+                    let p2 = nodes[j];
+                    let d = Math.sqrt((p1.x-p2.x)**2 + (p1.y-p2.y)**2);
+                    if(d < 70) {
+                        netCtx.beginPath();
+                        netCtx.strokeStyle = `rgba(0, 242, 255, ${1 - d/70})`;
+                        netCtx.lineWidth = 0.8;
+                        netCtx.moveTo(p1.x, p1.y);
+                        netCtx.lineTo(p2.x, p2.y);
+                        netCtx.stroke();
                     }
+                }
+
+                netCtx.beginPath();
+                netCtx.fillStyle = '#00f2ff';
+                netCtx.arc(p1.x, p1.y, 1.5, 0, Math.PI*2);
+                netCtx.fill();
+            }
+            requestAnimationFrame(drawNet);
+        }
+        drawNet();
+        
+        const numInput = document.getElementById('cardNumber');
+        const dateInput = document.getElementById('cardDate');
+        const displayNum = document.getElementById('displayNumber');
+        const displayDate = document.getElementById('displayDate');
+        const brandLabel = document.getElementById('cardBrandLabel');
+        const msgNumber = document.getElementById('msgNumber');
+        const msgDate = document.getElementById('msgDate');
+        const form = document.getElementById('payment-form');
+
+        const cardPatterns = {
+            visa: /^4/,
+            mastercard: /^5[1-5]/,
+            amex: /^3[47]/,
+            discover: /^6(?:011|5)/,
+            diners: /^3(?:0[0-5]|[68])/
+        };
+
+        function checkLuhn(value) {
+            if (/[^0-9-\s]+/.test(value)) return false;
+            let nCheck = 0, nDigit = 0, bEven = false;
+            value = value.replace(/\D/g, "");
+            for (let n = value.length - 1; n >= 0; n--) {
+                let cDigit = value.charAt(n), nDigit = parseInt(cDigit, 10);
+                if (bEven) { if ((nDigit *= 2) > 9) nDigit -= 9; }
+                nCheck += nDigit; bEven = !bEven;
+            }
+            return (nCheck % 10) == 0;
+        }
+
+        function validateDate() {
+            const val = dateInput.value; 
+            const msgBox = msgDate;
+            const errSpan = msgBox.querySelector('.msg-error');
+
+            dateInput.classList.remove('input-error');
+            errSpan.style.display = 'none';
+
+            if (val.length < 5) {
+                if(val.length > 0) {
+                     errSpan.textContent = "Fecha incompleta";
+                     errSpan.style.display = 'block';
+                     dateInput.classList.add('input-error');
+                }
+                return false;
+            }
+
+            const parts = val.split('/');
+            const month = parseInt(parts[0], 10);
+            const year = parseInt(parts[1], 10);
+
+            if (!month || !year || month < 1 || month > 12) {
+                errSpan.textContent = "Mes inválido (01-12)";
+                errSpan.style.display = 'block';
+                dateInput.classList.add('input-error');
+                return false;
+            }
+
+            const now = new Date();
+            const currentYear = parseInt(now.getFullYear().toString().substr(-2));
+            const currentMonth = now.getMonth() + 1; 
+
+            let expired = false;
+            if (year < currentYear) {
+                expired = true; 
+            } else if (year === currentYear) {
+                if (month < currentMonth) {
+                    expired = true; 
+                }
+            }
+
+            if (expired) {
+                errSpan.textContent = "ERROR: Fecha expirada o inválida";
+                errSpan.style.display = 'block';
+                dateInput.classList.add('input-error');
+                return false;
+            }
+
+            return true;
+        }
+
+        numInput.addEventListener('input', (e) => {
+            let raw = e.target.value.replace(/\D/g, '');
+            let formatted = '';
+
+            let type = "VISA"; 
+            let color = "#4af";
+
+            if (cardPatterns.mastercard.test(raw)) { type = "MASTERCARD"; color = "#f55"; }
+            else if (cardPatterns.amex.test(raw)) { type = "AMEX"; color = "#0cf"; }
+            else if (cardPatterns.discover.test(raw)) { type = "DISCOVER"; color = "#fa0"; }
+            else if (cardPatterns.diners.test(raw)) { type = "DINERS"; color = "#aaa"; }
+            else if (cardPatterns.visa.test(raw)) { type = "VISA"; color = "#4af"; }
+            
+            brandLabel.textContent = type;
+            brandLabel.style.color = color;
+
+            if (type === "AMEX") {
+                for(let i=0; i<raw.length; i++) {
+                    if (i===4 || i===10) formatted += ' ';
+                    formatted += raw[i];
+                }
+            } else {
+                for(let i=0; i<raw.length; i++) {
+                    if (i>0 && i%4===0) formatted += ' ';
+                    formatted += raw[i];
+                }
+            }
+            
+            e.target.value = formatted;
+            displayNum.textContent = formatted || "#### #### #### ####";
+
+            validateNumber(false); 
+        });
+
+        numInput.addEventListener('blur', () => {
+            validateNumber(true); 
+        });
+
+        function validateNumber(checkIncomplete) {
+            const raw = numInput.value.replace(/\D/g, '');
+            const msgBox = msgNumber;
+            const errSpan = msgBox.querySelector('.msg-error');
+            const infoSpan = msgBox.querySelector('.msg-info');
+            
+            numInput.classList.remove('input-error');
+            errSpan.style.display = 'none';
+            infoSpan.style.display = 'none';
+
+            if (raw.length === 0) return;
+
+            const isAmex = brandLabel.textContent === "AMEX";
+            const minLength = isAmex ? 15 : 16;
+
+            if (raw.length < minLength) {
+
+                infoSpan.textContent = `Faltan ${minLength - raw.length} dígitos...`;
+                infoSpan.style.display = 'block';
+                if(checkIncomplete) numInput.classList.add('input-error');
+            } else {
+                if (!checkLuhn(raw)) {
+                    errSpan.style.display = 'block';
+                    errSpan.textContent = "ERROR: Número inválido (Algoritmo)";
+                    numInput.classList.add('input-error');
                 }
             }
         }
+
+        dateInput.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/\D/g, '');
+            if (val.length >= 3) {
+                e.target.value = val.slice(0,2) + '/' + val.slice(2,4);
+            } else {
+                e.target.value = val;
+            }
+            displayDate.textContent = e.target.value || "MM/AA";
+
+            if(e.target.value.length === 5) {
+                validateDate();
+            } else {
+
+                dateInput.classList.remove('input-error');
+                msgDate.querySelector('.msg-error').style.display = 'none';
+            }
+        });
+
+        dateInput.addEventListener('blur', () => {
+            validateDate();
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const raw = numInput.value.replace(/\D/g, '');
+            const rawDate = dateInput.value;
+
+            const isCardValid = (raw.length >= 13 && checkLuhn(raw));
+            const isDateValid = validateDate(); 
+
+            if (!isCardValid || !isDateValid) {
+                form.style.transform = "translateX(5px)";
+                setTimeout(()=> form.style.transform = "translateX(-5px)", 50);
+                setTimeout(()=> form.style.transform = "translateX(0)", 100);
+                return;
+            }
+
+            document.getElementById('loading-screen').style.display = 'flex';
+            let count = 3;
+            const counter = document.getElementById('counterNumber');
+            const finalMsg = document.getElementById('finalMessage');
+            
+            const timer = setInterval(() => {
+                count--;
+                counter.textContent = count;
+                if(count <= 0) {
+                    clearInterval(timer);
+                    counter.style.display = 'none';
+                    finalMsg.style.display = 'block';
+ 
+                    setTimeout(() => {
+                        window.location.reload(); 
+                    }, 1500);
+                }
+            }, 1000);
+        });
     </script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body class="bg-darkBg text-slate-300 font-sans min-h-screen flex flex-col justify-between">
 
-    <header class="container mx-auto px-6 py-8 flex justify-between items-center border-b border-slate-800">
-        <div class="flex items-center space-x-3">
-            <i class="fa-solid fa-terminal text-2xl text-accent"></i>
-            <span class="text-xl font-bold text-white tracking-wider">dev-nets.me</span>
-        </div>
-        <nav class="flex space-x-6 text-sm">
-            <a href="#proyectos" class="hover:text-accent transition">Proyectos</a>
-            <a href="#labs" class="hover:text-accent transition">Labs</a>
-            <a href="mailto:dev@dev-nets.me" class="hover:text-accent transition"><i class="fa-regular fa-envelope mr-1"></i>Contacto</a>
-        </nav>
-    </header>
-
-    <main class="container mx-auto px-6 py-16 text-center max-w-4xl">
-        <div class="inline-block px-4 py-1 mb-6 text-xs text-sky-400 bg-sky-950 border border-sky-800 rounded-full">
-            <i class="fa-solid fa-shield-halved mr-1"></i> Sitio seguro (HTTPS) y Anónimo
-        </div>
-        
-        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight">
-            Infraestructura y <span class="text-accent">Desarrollo</span>
-        </h1>
-        
-        <p class="text-slate-400 text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-            Portafolio de prácticas, despliegues web y laboratorios técnicos. Un espacio dedicado al aprendizaje continuo y a la ingeniería de sistemas.
-        </p>
-
-        <div class="flex justify-center gap-4">
-            <a href="#proyectos" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-md border border-slate-700 transition flex items-center gap-2">
-                <i class="fa-solid fa-code"></i> Ver Proyectos
-            </a>
-            <a href="https://github.com/tu-usuario-de-github" target="_blank" class="px-6 py-3 bg-accent text-slate-950 font-medium rounded-md hover:opacity-90 transition flex items-center gap-2">
-                <i class="fa-brands fa-github"></i> GitHub
-            </a>
-        </div>
-    </main>
-
-    <section id="proyectos" class="bg-cardBg py-16">
-        <div class="container mx-auto px-6 max-w-6xl">
-            <h2 class="text-3xl font-bold text-white mb-4 text-center">Mis Proyectos</h2>
-            <p class="text-slate-400 text-center mb-12 max-w-xl mx-auto">Portafolio de aplicaciones web, entornos estáticos y despliegues en la nube.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <div class="p-6 bg-slate-900 border border-slate-800 rounded-lg shadow-md hover:border-slate-600 transition flex flex-col justify-between">
-                    <div>
-                        <div class="text-accent text-3xl mb-4"><i class="fa-solid fa-cloud"></i></div>
-                        <h3 class="text-white font-semibold text-lg mb-2">Proyecto Web 1</h3>
-                        <p class="text-slate-400 text-sm mb-6">
-                            Descripción breve del proyecto. Aplicación front-end desarrollada y alojada con CI/CD automatizado.
-                        </p>
-                    </div>
-                    <div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs bg-slate-800 text-sky-400 px-2 py-0.5 rounded">HTML/CSS</span>
-                            <span class="text-xs bg-slate-800 text-sky-400 px-2 py-0.5 rounded">JS</span>
-                        </div>
-                        <div class="flex gap-3">
-                            <a href="https://github.com/tu-usuario/repo1" target="_blank" class="text-xs text-slate-400 hover:text-white transition"><i class="fa-brands fa-github mr-1"></i> Código</a>
-                            <a href="https://proyecto1.dev-nets.me" target="_blank" class="text-xs text-accent hover:underline"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Ver Sitio</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="p-6 bg-slate-900 border border-slate-800 rounded-lg shadow-md hover:border-slate-600 transition flex flex-col justify-between">
-                    <div>
-                        <div class="text-accent text-3xl mb-4"><i class="fa-solid fa-server"></i></div>
-                        <h3 class="text-white font-semibold text-lg mb-2">Proyecto Infraestructura</h3>
-                        <p class="text-slate-400 text-sm mb-6">
-                            Gestión de DNS, subdominios seguros y enrutamiento hacia la infraestructura alojada en servidores de prueba.
-                        </p>
-                    </div>
-                    <div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs bg-slate-800 text-sky-400 px-2 py-0.5 rounded">DNS</span>
-                            <span class="text-xs bg-slate-800 text-sky-400 px-2 py-0.5 rounded">Cloud</span>
-                        </div>
-                        <div class="flex gap-3">
-                            <a href="#" target="_blank" class="text-xs text-slate-400 hover:text-white transition"><i class="fa-brands fa-github mr-1"></i> Código</a>
-                            <a href="#" target="_blank" class="text-xs text-accent hover:underline"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Ver Sitio</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="p-6 bg-slate-900 border border-slate-800 rounded-lg shadow-md hover:border-slate-600 transition flex flex-col justify-between">
-                    <div>
-                        <div class="text-accent text-3xl mb-4"><i class="fa-solid fa-database"></i></div>
-                        <h3 class="text-white font-semibold text-lg mb-2">Testing & API</h3>
-                        <p class="text-slate-400 text-sm mb-6">
-                            Entorno diseñado para realizar pruebas de conexión y consultas de datos hacia servidores de desarrollo.
-                        </p>
-                    </div>
-                    <div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="text-xs bg-slate-800 text-sky-400 px-2 py-0.5 rounded">API</span>
-                            <span class="text-xs bg-slate-800 text-sky-400 px-2 py-0.5 rounded">Python</span>
-                        </div>
-                        <div class="flex gap-3">
-                            <a href="#" target="_blank" class="text-xs text-slate-400 hover:text-white transition"><i class="fa-brands fa-github mr-1"></i> Código</a>
-                            <a href="#" target="_blank" class="text-xs text-accent hover:underline"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Ver Sitio</a>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </section>
-
-    <section id="labs" class="bg-darkBg py-16">
-        <div class="container mx-auto px-6 max-w-6xl">
-            <h2 class="text-3xl font-bold text-white mb-4 text-center">Laboratorios y Prácticas</h2>
-            <p class="text-slate-400 text-center mb-12 max-w-xl mx-auto">Entornos de aprendizaje y configuraciones de servidores.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="p-6 bg-slate-900 border border-slate-800 rounded-lg flex items-center gap-6">
-                    <i class="fa-solid fa-network-wired text-4xl text-sky-400"></i>
-                    <div>
-                        <h3 class="text-white font-semibold text-lg mb-1">Laboratorio de Redes</h3>
-                        <p class="text-slate-400 text-sm mb-3">Pruebas de enrutamiento y configuraciones de subredes para optimizar el tráfico web.</p>
-                        <a href="#" class="text-xs text-sky-400 hover:underline">Ver repositorio <i class="fa-solid fa-arrow-right text-xxs"></i></a>
-                    </div>
-                </div>
-
-                <div class="p-6 bg-slate-900 border border-slate-800 rounded-lg flex items-center gap-6">
-                    <i class="fa-solid fa-shield-halved text-4xl text-sky-400"></i>
-                    <div>
-                        <h3 class="text-white font-semibold text-lg mb-1">Hardening y Seguridad</h3>
-                        <p class="text-slate-400 text-sm mb-3">Implementación de certificados SSL de Namecheap y protección en cabeceras HTTP.</p>
-                        <a href="#" class="text-xs text-sky-400 hover:underline">Ver detalles <i class="fa-solid fa-arrow-right text-xxs"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="container mx-auto px-6 py-8 border-t border-slate-800 text-center text-xs text-slate-500">
-        <p>&copy; 2026 dev-nets.me &bull; Todos los derechos reservados.</p>
-    </footer>
-
+    <amp-auto-ads type="adsense"
+        data-ad-client="ca-pub-9754978510809336">
+    </amp-auto-ads>
 </body>
 </html>
